@@ -1,46 +1,99 @@
-'''
+"""
 This is a sample class for a model. You may choose to use it as-is or make any changes to it.
 This has been provided just to give you an idea of how to structure your model class.
-'''
+"""
+import numpy as np
 
-class Model_X:
-    '''
-    Class for the Face Detection Model.
-    '''
-    def __init__(self, model_name, device='CPU', extensions=None):
-        '''
-        TODO: Use this to set your instance variables.
-        '''
-        raise NotImplementedError
+import cv2
+from openvino.inference_engine import IECore
+
+
+class Model:
+    def __init__(self, model, device, extensions=None):
+        self.model_weights = model + ".bin"
+        self.model_structure = model + ".xml"
+        self.device = device
+        self.extensions = extensions
+
+        try:
+            self.core = IECore()
+            if self.extensions and "CPU" in self.device:
+                self.core.add_extension(self.extensions, self.device)
+
+            self.model = self.core.read_network(
+                model=self.model_structure, weights=self.model_weights
+            )
+        except Exception as e:
+            raise ValueError(
+                "Could not Initialise the network. Have you enterred the correct model path?"
+            )
+
+        self.input_name = next(iter(self.model.inputs)) # 'data'
+        self.input_shape = self.model.inputs[self.input_name].shape # [1, 3, 384, 672]
+        self.output_name = next(iter(self.model.outputs)) # 'detection_out'
+        self.output_shape = self.model.outputs[self.output_name].shape #[1, 1, 200, 7]
 
     def load_model(self):
-        '''
-        TODO: You will need to complete this method.
-        This method is for loading the model to the device specified by the user.
-        If your model requires any Plugins, this is where you can load them.
-        '''
-        raise NotImplementedError
+
+        self.net = self.core.load_network(
+            network=self.model, device_name=self.device, num_requests=1
+        )
 
     def predict(self, image):
-        '''
-        TODO: You will need to complete this method.
-        This method is meant for running predictions on the input image.
-        '''
-        raise NotImplementedError
+
+        processed_input = self.preprocess_input(image)
+        async_infer = self.net.start_async(request_id=0, inputs=processed_input)
+        if async_infer.wait() == 0:
+            result = async_infer.outputs[self.output_name]
+            # coords = self.preprocess_outputs(result)
+            # b_boxes, image = self.draw_outputs(coords, image)
+            # return b_boxes, image
+            return result
 
     def check_model(self):
-        raise NotImplementedError
+        
+        supported_layers = self.core.query_network(
+            network=self.model, device_name=self.device
+        )
+        unsupported_layers = [
+            l for l in self.model.layers.keys() if l not in supported_layers
+        ]
+        if len(unsupported_layers) != 0:
+            print("Unsupported layers found: {}".format(unsupported_layers))
+            print("Check whether extensions are available to add to IECore.")
+            exit(1)
+        return
+
+    def draw_outputs(self, coords, image):
+
+        width = image.shape[1]
+        height = image.shape[0]
+        b_boxes = []
+        for coord in coords:
+            xmin = int(coord[0] * width)
+            ymin = int(coord[1] * height)
+            xmax = int(coord[2] * width)
+            ymax = int(coord[3] * height)
+            b_boxes.append([xmin, ymin, xmax, ymax])
+            image = cv2.rectangle(image, (xmin, ymin), (xmax, ymax), (0, 0, 255), 2)
+        return b_boxes, image
+
+    def preprocess_outputs(self, outputs, threshold=0.6):
+
+        coords = []
+        for coord in outputs[0][0]:
+            if coord[2] >= threshold:
+                coords.append(coord[3:])
+        return coords
 
     def preprocess_input(self, image):
-        '''
-        Before feeding the data into the model for inference,
-        you might have to preprocess it. This function is where you can do that.
-        '''
-        raise NotImplementedError
 
-    def preprocess_output(self, outputs):
-        '''
-        Before feeding the output of this model to the next model,
-        you might have to preprocess the output. This function is where you can do that.
-        '''
-        raise NotImplementedError
+        input_img = image
+        input_img = cv2.resize(
+            input_img,
+            (self.input_shape[3], self.input_shape[2]),
+            interpolation=cv2.INTER_AREA,
+        )
+        input_img = np.moveaxis(input_img, -1, 0)
+        input_dict = {self.input_name: input_img}
+        return input_dict
