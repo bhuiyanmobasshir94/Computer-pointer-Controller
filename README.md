@@ -12,6 +12,7 @@ To work with OpenVINO there are some specific hardware requirements and they are
 - Intel® Movidius™ Neural Compute Stick
 
 #### Project directory structure
+```
 ├───bin
 ├───helpers
 ├───logs
@@ -36,7 +37,7 @@ To work with OpenVINO there are some specific hardware requirements and they are
 │   └───INT8
 └───src
     └───__pycache__
-
+```
 #### Models need to download and where to place them
 Before working with this project we need to make sure we have all the model downloaded in our base directory and under models folder.
 To do that, first we need to activate OpenVINO by going to the OpenVino installation directory (I am a windows user)
@@ -97,6 +98,7 @@ python pipeline.py -fdm face-detection-adas-binary-0001/FP32-INT1/face-detection
 ```
 
 Arguments:
+```
 -fdm --face_detection_model Path to an xml and bin (without extension) file with a trained model.
 -fldm --facial_landmarks_detection_model Path to an xml and bin (without extension) file with a trained model.
 -hpem --head_pose_estimation_model Path to an xml and bin (without extension) file with a trained model.
@@ -107,7 +109,7 @@ Arguments:
 -d --device Specify the target device to infer on: CPU, GPU, FPGA or MYRIAD is acceptable. Sample will look for a suitable plugin for device specified (CPU by default)
 -pt --prob_threshold Probability threshold for detections filtering" "(0.5 by default)
 -f --flags Specify flag with one or more model flags separated by space flags can be used fdm fldm hpem gem like -f fdm or -f fdm fldm etc
-
+```
 ## Benchmarks
 *TODO:* Include the benchmark results of running your model on multiple hardwares and multiple model precisions. Your benchmarks can include: model loading time, input/output processing time, model inference time etc.
 
