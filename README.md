@@ -92,23 +92,46 @@ python pipeline.py -fdm face-detection-adas-binary-0001/FP32-INT1/face-detection
 ## Documentation
 
 #### Command Line Arguments
-Usage: 
 ```
-python pipeline.py -fdm face-detection-adas-binary-0001/FP32-INT1/face-detection-adas-binary-0001 -fldm landmarks-regression-retail-0009/FP32/landmarks-regression-retail-0009 -hpem head-pose-estimation-adas-0001/FP32/head-pose-estimation-adas-0001 -gem gaze-estimation-adas-0002/FP32/gaze-estimation-adas-0002 -i "demo.mp4" -o "FP32" -d "CPU" -f fdm fldm hpem gem
-```
+usage: pipeline.py [-h] -fdm FACE_DETECTION_MODEL -fldm
+                   FACIAL_LANDMARKS_DETECTION_MODEL -hpem
+                   HEAD_POSE_ESTIMATION_MODEL -gem GAZE_ESTIMATION_MODEL -i
+                   INPUT -o OUTPUT [-l CPU_EXTENSION] [-d DEVICE]
+                   [-pt PROB_THRESHOLD] [-f FLAGS [FLAGS ...]]
 
-Arguments:
-```
--fdm --face_detection_model Path to an xml and bin (without extension) file with a trained model.
--fldm --facial_landmarks_detection_model Path to an xml and bin (without extension) file with a trained model.
--hpem --head_pose_estimation_model Path to an xml and bin (without extension) file with a trained model.
--gem --gaze_estimation_model Path to an xml and bin (without extension) file with a trained model.
--i --input Path to image or video file or camera feed usage direction. For camera feed please pass 'CAM' keyword.
--o --output Output directory name.
--l --cpu_extension MKLDNN (CPU)-targeted custom layers. Absolute path to a shared library with the kernels impl.
--d --device Specify the target device to infer on: CPU, GPU, FPGA or MYRIAD is acceptable. Sample will look for a suitable plugin for device specified (CPU by default)
--pt --prob_threshold Probability threshold for detections filtering" "(0.5 by default)
--f --flags Specify flag with one or more model flags separated by space flags can be used fdm fldm hpem gem like -f fdm or -f fdm fldm etc
+optional arguments:
+  -h, --help            show this help message and exit
+  -fdm FACE_DETECTION_MODEL, --face_detection_model FACE_DETECTION_MODEL
+                        Path to an xml and bin (without extension) file with a
+                        trained model.
+  -fldm FACIAL_LANDMARKS_DETECTION_MODEL, --facial_landmarks_detection_model FACIAL_LANDMARKS_DETECTION_MODEL
+                        Path to an xml and bin (without extension) file with a
+                        trained model.
+  -hpem HEAD_POSE_ESTIMATION_MODEL, --head_pose_estimation_model HEAD_POSE_ESTIMATION_MODEL
+                        Path to an xml and bin (without extension) file with a
+                        trained model.
+  -gem GAZE_ESTIMATION_MODEL, --gaze_estimation_model GAZE_ESTIMATION_MODEL
+                        Path to an xml and bin (without extension) file with a
+                        trained model.
+  -i INPUT, --input INPUT
+                        Path to image or video file or camera feed usage
+                        direction.For camera feed please pass 'CAM' keyword
+  -o OUTPUT, --output OUTPUT
+                        Output directory name.
+  -l CPU_EXTENSION, --cpu_extension CPU_EXTENSION
+                        MKLDNN (CPU)-targeted custom layers.Absolute path to a
+                        shared library with thekernels impl.
+  -d DEVICE, --device DEVICE
+                        Specify the target device to infer on: CPU, GPU, FPGA
+                        or MYRIAD is acceptable. Sample will look for a
+                        suitable plugin for device specified (CPU by default)
+  -pt PROB_THRESHOLD, --prob_threshold PROB_THRESHOLD
+                        Probability threshold for detections filtering(0.5 by
+                        default)
+  -f FLAGS [FLAGS ...], --flags FLAGS [FLAGS ...]
+                        Specify flag with one or more model flags separated by
+                        spaceflags can be used fdm fldm hpem gem like -f fdm
+                        or -f fdm fldm etc
 ```
 ## Benchmarks
 I have done the benchmarking between loading time, inference time and fps with different precision.
