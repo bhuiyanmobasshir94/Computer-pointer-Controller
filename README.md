@@ -111,7 +111,13 @@ Arguments:
 -f --flags Specify flag with one or more model flags separated by space flags can be used fdm fldm hpem gem like -f fdm or -f fdm fldm etc
 ```
 ## Benchmarks
-*TODO:* Include the benchmark results of running your model on multiple hardwares and multiple model precisions. Your benchmarks can include: model loading time, input/output processing time, model inference time etc.
+I have done the benchmarking between loading time, inference time and fps with different precision.
+#### Loading TIme
+![Loading Time Benchmarking](results/loading_time.png)  
+#### Inference TIme
+![Inference Time Benchmarking](results/inference_time.png)  
+#### Loading TIme
+![FPS Benchmarking](results/fps.png)  
 
 ## Results
 *TODO:* Discuss the benchmark results and explain why you are getting the results you are getting. For instance, explain why there is difference in inference time for FP32, FP16 and INT8 models.
