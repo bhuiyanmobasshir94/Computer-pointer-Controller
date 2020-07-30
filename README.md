@@ -116,11 +116,19 @@ I have done the benchmarking between loading time, inference time and fps with d
 ![Loading Time Benchmarking](results/loading_time.png)  
 #### Inference TIme
 ![Inference Time Benchmarking](results/inference_time.png)  
-#### Loading TIme
+#### FPS
 ![FPS Benchmarking](results/fps.png)  
 
 ## Results
-*TODO:* Discuss the benchmark results and explain why you are getting the results you are getting. For instance, explain why there is difference in inference time for FP32, FP16 and INT8 models.
+|  Precision	| Loading Time 	        |  Inference Time	    | FPS 	                |
+|-	            |-	                    |-	                    |-	                    |
+|  INT8	        |  1.6478745937347412	|  82.23121976852417	|  0.7177615571776156	|  	
+|  FP16	        |  0.670651912689209	|  81.92747926712036	|  0.7203907203907204	|
+|  FP32	        |  1.0919969081878662	|  81.61519622802734    |  0.7230392156862746   |  	
+
+
+- I got all the precision to act same both on inference time and fps case. FP32 got some higher value for higher precision
+- For model loading INT8 took much long time than others and difference is significant
 
 ## Stand Out Suggestions
 This is where you can provide information about the stand out suggestions that you have attempted.
