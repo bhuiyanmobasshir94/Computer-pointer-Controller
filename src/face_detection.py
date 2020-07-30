@@ -22,6 +22,6 @@ class Model_FaceDetection(Model):
             xmax = int(coord[2] * width)
             ymax = int(coord[3] * height)
             b_boxes.append([xmin, ymin, xmax, ymax])
-            if flags and 'fdm' in flags:
+            if flags and "fdm" in flags:
                 image = cv2.rectangle(image, (xmin, ymin), (xmax, ymax), (0, 0, 255), 2)
         return b_boxes, image

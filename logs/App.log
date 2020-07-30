@@ -1,17 +1,17 @@
-2020-07-31 03:24:08,268 [INFO] *********** Model Load Time Start ***************
-2020-07-31 03:24:08,486 [INFO] Model_FaceDetection: 218.5 ms.
-2020-07-31 03:24:08,618 [INFO] Model_FacialLandMarkDetection: 131.8 ms.
-2020-07-31 03:24:08,744 [INFO] Model_HeadPoseEstimation: 125.7 ms.
-2020-07-31 03:24:08,889 [INFO] Model_GazeEstimation: 144.6 ms.
-2020-07-31 03:24:08,889 [INFO] *********** Model Load Time End ***************
-2020-07-31 03:25:30,681 [INFO] *********** Model Inference Time Start ****************
-2020-07-31 03:25:30,682 [INFO] Model_FaceDetection: 16.8 ms.
-2020-07-31 03:25:30,682 [INFO] Model_FacialLandMarkDetection: 1.1 ms.
-2020-07-31 03:25:30,683 [INFO] Model_HeadPoseEstimation: 1.9 ms.
-2020-07-31 03:25:30,683 [INFO] Model_GazeEstimation: 1.5 ms.
-2020-07-31 03:25:30,684 [INFO] *********** Model Inference Time End ***********
-2020-07-31 03:25:30,684 [INFO] *********** Summary ****************
-2020-07-31 03:25:30,685 [INFO] model_loading_total_time: 0.6215724945068359 s.
-2020-07-31 03:25:30,685 [INFO] model_inference_total_time: 81.79176568984985 s.
-2020-07-31 03:25:30,685 [INFO] FPS: 0.7212713936430318
-2020-07-31 03:25:30,685 [INFO] *********** Summary End ***********
+2020-07-31 03:33:59,416 [INFO] *********** Model Load Time Start ***************
+2020-07-31 03:33:59,635 [INFO] Model_FaceDetection: 218.4 ms.
+2020-07-31 03:33:59,768 [INFO] Model_FacialLandMarkDetection: 131.6 ms.
+2020-07-31 03:33:59,890 [INFO] Model_HeadPoseEstimation: 121.7 ms.
+2020-07-31 03:34:00,038 [INFO] Model_GazeEstimation: 147.6 ms.
+2020-07-31 03:34:00,038 [INFO] *********** Model Load Time End ***************
+2020-07-31 03:35:21,431 [INFO] *********** Model Inference Time Start ****************
+2020-07-31 03:35:21,432 [INFO] Model_FaceDetection: 18.1 ms.
+2020-07-31 03:35:21,434 [INFO] Model_FacialLandMarkDetection: 1.2 ms.
+2020-07-31 03:35:21,435 [INFO] Model_HeadPoseEstimation: 1.9 ms.
+2020-07-31 03:35:21,435 [INFO] Model_GazeEstimation: 1.4 ms.
+2020-07-31 03:35:21,436 [INFO] *********** Model Inference Time End ***********
+2020-07-31 03:35:21,436 [INFO] *********** Summary ****************
+2020-07-31 03:35:21,436 [INFO] model_loading_total_time: 0.6208405494689941 s.
+2020-07-31 03:35:21,437 [INFO] model_inference_total_time: 81.39287519454956 s.
+2020-07-31 03:35:21,437 [INFO] FPS: 0.7248157248157248
+2020-07-31 03:35:21,437 [INFO] *********** Summary End ***********

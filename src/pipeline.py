@@ -212,7 +212,11 @@ def inference():
             cropped_face = frame[b_box[1] : b_box[3], b_box[0] : b_box[2]]
 
             start_time = time.time()
-            left_eye_coord, right_eye_coord, output_frame = facial_landmark_detection.predict(
+            (
+                left_eye_coord,
+                right_eye_coord,
+                output_frame,
+            ) = facial_landmark_detection.predict(
                 cropped_face, flags, prob_threshold, b_box, output_frame
             )
             facial_landmark_detection_infer_total += time.time() - start_time
@@ -225,7 +229,13 @@ def inference():
 
             start_time = time.time()
             gaze_vector, output_frame = gaze_estimation.predict(
-                output_frame, flags, b_box, cropped_face, left_eye_coord, right_eye_coord, angle_list
+                output_frame,
+                flags,
+                b_box,
+                cropped_face,
+                left_eye_coord,
+                right_eye_coord,
+                angle_list,
             )
             gaze_estimation_infer_total += time.time() - start_time
 
@@ -242,10 +252,18 @@ def inference():
 
     if count > 0:
         logging.info("*********** Model Inference Time Start ****************")
-        logging.info(f"Model_FaceDetection: {1000*face_detection_infer_total/count:.1f} ms.")
-        logging.info(f"Model_FacialLandMarkDetection: {1000*facial_landmark_detection_infer_total/count:.1f} ms.")
-        logging.info(f"Model_HeadPoseEstimation: {1000*headpose_estimation_infer_total/count:.1f} ms.")
-        logging.info(f"Model_GazeEstimation: {1000*gaze_estimation_infer_total/count:.1f} ms.")
+        logging.info(
+            f"Model_FaceDetection: {1000*face_detection_infer_total/count:.1f} ms."
+        )
+        logging.info(
+            f"Model_FacialLandMarkDetection: {1000*facial_landmark_detection_infer_total/count:.1f} ms."
+        )
+        logging.info(
+            f"Model_HeadPoseEstimation: {1000*headpose_estimation_infer_total/count:.1f} ms."
+        )
+        logging.info(
+            f"Model_GazeEstimation: {1000*gaze_estimation_infer_total/count:.1f} ms."
+        )
         logging.info("*********** Model Inference Time End ***********")
 
     logging.info("*********** Summary ****************")
@@ -254,10 +272,10 @@ def inference():
     logging.info(f"FPS: {fps}")
     logging.info("*********** Summary End ***********")
 
-    with open(os.path.join(output_path, 'stats.txt'), 'w') as f:
-        f.write(str(model_loading_total_time)+'\n')
-        f.write(str(model_inference_total_time)+'\n')
-        f.write(str(fps)+'\n')
+    with open(os.path.join(output_path, "stats.txt"), "w") as f:
+        f.write(str(model_loading_total_time) + "\n")
+        f.write(str(model_inference_total_time) + "\n")
+        f.write(str(fps) + "\n")
 
     feeder.close()
     cv2.destroyAllWindows()
@@ -267,6 +285,7 @@ def pipeline():
     args = build_argparser().parse_args()
     setup(args)
     inference()
+
 
 if __name__ == "__main__":
     pipeline()
